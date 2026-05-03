@@ -4,7 +4,7 @@ set -euo pipefail
 rm -rf openwrt
 rm -rf mtk-openwrt-feeds
 
-git clone --branch openwrt-24.10 https://git.openwrt.org/openwrt/openwrt.git openwrt
+git clone --branch openwrt-25.12 https://git.openwrt.org/openwrt/openwrt.git openwrt
 cd openwrt; git checkout 77d54cca84ffbb7754d592712ee96b0fcbff0d92; cd -;		#jsonfilter: fix memory leak in jsonfilter
 
 git clone --branch master https://git01.mediatek.com/openwrt/feeds/mtk-openwrt-feeds
@@ -12,17 +12,17 @@ cd mtk-openwrt-feeds; git checkout 1823bb66e40b3a5db7b0a8b26e7022c074fbe3f2; cd 
 
 ### wireless-regdb modification - this remove all regdb wireless countries restrictions
 #rm -rf openwrt/package/firmware/wireless-regdb/patches/*.*
-#rm -rf mtk-openwrt-feeds/autobuild/unified/filogic/mac80211/24.10/files/package/firmware/wireless-regdb/patches/*.*
-#\cp -r my_files/500-tx_power.patch mtk-openwrt-feeds/autobuild/unified/filogic/mac80211/24.10/files/package/firmware/wireless-regdb/patches
+#rm -rf mtk-openwrt-feeds/autobuild/unified/filogic/mac80211/25.12/files/package/firmware/wireless-regdb/patches/*.*
+#\cp -r my_files/500-tx_power.patch mtk-openwrt-feeds/autobuild/unified/filogic/mac80211/25.12/files/package/firmware/wireless-regdb/patches
 #\cp -r my_files/regdb.Makefile openwrt/package/firmware/wireless-regdb/Makefile
 
-rm -rf mtk-openwrt-feeds/24.10/patches-feeds/108-strongswan-add-uci-support.patch
+rm -rf mtk-openwrt-feeds/25.12/patches-feeds/108-strongswan-add-uci-support.patch
 
-\cp -r my_files/9999-sfp-10-additional-quirks.patch mtk-openwrt-feeds/24.10/files/target/linux/mediatek/patches-6.6
+\cp -r my_files/9999-sfp-10-additional-quirks.patch mtk-openwrt-feeds/25.12/files/target/linux/mediatek/patches-6.6
 
 ### tx_power patch - required for BE14 boards with defective eeprom flash
-\cp -r my_files/99999_tx_power_check.patch mtk-openwrt-feeds/autobuild/unified/filogic/mac80211/24.10/files/package/kernel/mt76/patches/
-\cp -r my_files/1007-wozi-arch-arm64-dts-mt7988a-add-thermal-zone.patch mtk-openwrt-feeds/24.10/patches-base/
+\cp -r my_files/99999_tx_power_check.patch mtk-openwrt-feeds/autobuild/unified/filogic/mac80211/25.12/files/package/kernel/mt76/patches/
+\cp -r my_files/1007-wozi-arch-arm64-dts-mt7988a-add-thermal-zone.patch mtk-openwrt-feeds/25.12/patches-base/
 
 cd openwrt
 bash ../mtk-openwrt-feeds/autobuild/unified/autobuild.sh filogic-mac80211-mt7988_rfb-mt7996 prepare
